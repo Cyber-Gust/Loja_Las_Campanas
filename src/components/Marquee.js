@@ -4,51 +4,66 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 export const Marquee = ({ children, backgroundColor, textColor, className = '', speed = 50 }) => {
-  // 1. Hooks para medir o elemento
-  const contentRef = useRef(null);
-  const [contentWidth, setContentWidth] = useState(0);
+    const contentRef = useRef(null);
+    const [contentWidth, setContentWidth] = useState(0);
 
-  // 2. Mede o elemento quando ele é montado no DOM
-  useEffect(() => {
-    if (contentRef.current) {
-      setContentWidth(contentRef.current.offsetWidth);
-    }
-  }, [children]); // Re-calcula se o conteúdo mudar
+    // Usamos um ResizeObserver para medir o conteúdo de forma reativa e robusta.
+    // Isso garante que a largura seja medida corretamente mesmo que imagens demorem a carregar.
+    useEffect(() => {
+        if (!contentRef.current) return;
 
-  // 3. Calcula a duração da animação baseada na largura para ter uma velocidade constante
-  const duration = contentWidth / speed;
+        const resizeObserver = new ResizeObserver(entries => {
+            // Na maioria dos casos, teremos apenas uma entrada, mas iteramos por segurança.
+            for (let entry of entries) {
+                setContentWidth(entry.contentRect.width);
+            }
+        });
 
-  // 4. Atualiza a animação para usar a largura real do conteúdo
-  const marqueeVariants = {
-    animate: {
-      x: [0, -contentWidth], // Anima da posição 0 até a largura negativa do conteúdo
-      transition: {
-        x: {
-          repeat: Infinity,
-          repeatType: "loop",
-          duration: duration, // Usa a duração dinâmica
-          ease: "linear",
+        resizeObserver.observe(contentRef.current);
+
+        // Limpa o observer quando o componente é desmontado para evitar memory leaks.
+        return () => resizeObserver.disconnect();
+    }, []); // O array de dependências vazio garante que isso rode apenas uma vez.
+
+    // A duração da animação é calculada apenas se a largura for maior que zero para evitar divisão por zero.
+    const duration = contentWidth > 0 ? contentWidth / speed : 0;
+
+    const marqueeVariants = {
+        animate: {
+            x: [0, -contentWidth],
+            transition: {
+                x: {
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    duration: duration,
+                    ease: "linear",
+                },
+            },
         },
-      },
-    },
-  };
+    };
 
-  return (
-    <div className={`w-full overflow-hidden ${backgroundColor} ${textColor} ${className}`}>
-      <motion.div
-        className="flex whitespace-nowrap"
-        variants={marqueeVariants}
-        animate="animate"
-      >
-        {/* Adicionamos a ref no primeiro span para medi-lo */}
-        <span ref={contentRef} className="py-2 inline-block">{children}</span>
-        
-        {/* As cópias garantem que a transição seja suave */}
-        <span className="py-2 inline-block">{children}</span>
-        <span className="py-2 inline-block">{children}</span>
-        <span className="py-2 inline-block">{children}</span>
-        
-      </motion.div>
-    </div>
-  );
+    return (
+        <div className={`w-full overflow-hidden flex ${backgroundColor} ${textColor} ${className}`}>
+            {/* O container da animação. Usamos 'flex' no pai e 'flex-shrink-0' nos filhos
+                para evitar que os itens sejam espremidos. */}
+            <motion.div
+                className="flex whitespace-nowrap"
+                variants={marqueeVariants}
+                animate="animate"
+            >
+                {/* O primeiro elemento é usado para medir a largura. A 'key' ajuda o React a identificá-lo. */}
+                <div ref={contentRef} className="flex-shrink-0">
+                    <span className="py-2 inline-block">{children}</span>
+                </div>
+
+                {/* As cópias garantem que a transição seja suave e sem espaços vazios.
+                    Aumentamos o número de cópias para cobrir telas muito largas com conteúdo curto. */}
+                <div className="flex-shrink-0"><span className="py-2 inline-block">{children}</span></div>
+                <div className="flex-shrink-0"><span className="py-2 inline-block">{children}</span></div>
+                <div className="flex-shrink-0"><span className="py-2 inline-block">{children}</span></div>
+                <div className="flex-shrink-0"><span className="py-2 inline-block">{children}</span></div>
+            </motion.div>
+        </div>
+    );
 };
+

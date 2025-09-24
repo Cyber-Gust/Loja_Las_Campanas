@@ -33,7 +33,7 @@ const LgndLetrasIcon = () => (
 
 const Hero = () => (
     <section 
-        className="w-full h-[60vh] md:h-[80vh] bg-cover bg-center" 
+        className="w-full h-[50vh] md:h-[60vh] bg-cover bg-center" 
         style={{ backgroundImage: "url('/bg_hero.jpg')" }} 
     />
 );
