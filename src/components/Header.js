@@ -20,7 +20,7 @@ const LgndFlagIcon = () => (
 const mockCategories = ["Masculino", "Feminino", "Infantil", "Acessórios", "Patchs"];
 
 const TopBanner = () => (
-    <Marquee backgroundColor="bg-[#fb3a01]" textColor="text-black" className="font-semibold text-sm">
+    <Marquee backgroundColor="bg-[#fb3a01]" textColor="text-white" className="font-semibold text-sm">
         <div className="w-max flex items-center">
             <span className="mx-8">APROVEITE AS PROMOÇÕES DA LOJA</span>
             <span className="mx-8">FRETE GRÁTIS ACIMA DE R$250</span>
