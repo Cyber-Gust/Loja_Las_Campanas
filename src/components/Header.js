@@ -4,42 +4,52 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Search, ShoppingCart } from 'lucide-react';
-import { Marquee } from './Marquee'; // Importando o Marquee
+// Supondo que o componente Marquee está no mesmo diretório
+import { Marquee } from './Marquee';
 
-// --- ÍCONE PERSONALIZADO (SVG) ---
-// Declarado apenas uma vez
 const LgndFlagIcon = () => (
   <Image
-    src="/logo.png" // O caminho começa na pasta /public
+    src="/logo.png"
     alt="Ícone da Legendarios"
-    width={230}   // Largura original do SVG
-    height={150}  // Altura original do SVG
-    className="inline-block"
+    width={230}
+    height={150}
+    className="h-auto w-auto" // Permite que a imagem se ajuste mantendo a proporção
   />
 );
 
-const mockCategories = ["Masculino", "Feminino", "Infantil", "Acessórios", "Calçados", "Skate"];
+const mockCategories = ["Masculino", "Feminino", "Infantil", "Acessórios", "Patchs"];
 
 const TopBanner = () => (
     <Marquee backgroundColor="bg-orange-500" textColor="text-black" className="font-semibold text-sm">
-        <span className="mx-8">APROVEITE AS PROMOÇÕES DA LOJA</span>
-        <span className="mx-8">FRETE GRÁTIS ACIMA DE R$250</span>
-        <span className="mx-8">COMPRE AGORA E PARCELE EM ATÉ 10X</span>
+        <div className="w-max flex items-center">
+            <span className="mx-8">APROVEITE AS PROMOÇÕES DA LOJA</span>
+            <span className="mx-8">FRETE GRÁTIS ACIMA DE R$250</span>
+            <span className="mx-8">COMPRE AGORA E PARCELE EM ATÉ 10X</span>
+        </div>
     </Marquee>
 );
 
 const MainHeader = () => (
     <header className="sticky top-0 z-50 bg-zinc-800 text-white shadow-md">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        {/* MUDANÇA AQUI: Adicionado 'gap-8' para garantir um espaçamento mínimo
+          entre os elementos, mesmo em telas menores.
+        */}
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between gap-8">
+            
             {/* Logo */}
-            <div >
+            <div>
                 <Link href="/" >
                     <LgndFlagIcon />
                 </Link>
             </div>
 
-            {/* Barra de Pesquisa */}
-            <div className="relative w-full mr-44 max-w-lg hidden md:block">
+            {/* Barra de Pesquisa
+              MUDANÇA AQUI: Removido 'mr-44' e 'w-full'. 
+              Adicionado 'flex-1' para que o container da pesquisa cresça e ocupe
+              o espaço disponível de forma flexível. 'max-w-xl' limita a largura
+              máxima em telas grandes.
+            */}
+            <div className="relative mr-36 flex-1 max-w-lg hidden md:block">
                 <input
                     type="text"
                     placeholder="O que você está procurando?"
@@ -49,12 +59,14 @@ const MainHeader = () => (
             </div>
 
             {/* Ícone do Carrinho */}
-            <button className="relative p-2 rounded-full hover:bg-zinc-700 transition-colors">
-                <ShoppingCart size={24} />
-                <span className="absolute top-0 right-0 h-4 w-4 rounded-full bg-orange-500 text-xs text-white flex items-center justify-center">
-                    3
-                </span>
-            </button>
+            <div>
+                <button className="relative p-2 rounded-full mr-20 hover:bg-zinc-700 transition-colors">
+                    <ShoppingCart size={24} />
+                    <span className="absolute top-0 right-0 h-4 w-4 rounded-full bg-orange-500 text-xs text-white flex items-center justify-center">
+                        3
+                    </span>
+                </button>
+            </div>
         </div>
     </header>
 );
@@ -75,7 +87,6 @@ const NavMenu = () => (
     </nav>
 );
 
-// Componente principal que agrupa tudo
 export default function Header() {
     return (
         <>
