@@ -39,7 +39,7 @@ const Hero = () => (
 );
 
 const LegendariosMarquee = () => (
-    <Marquee backgroundColor="bg-orange-500" textColor="text-white" className="font-bold text-lg tracking-widest">
+    <Marquee backgroundColor="bg-[#fb3a01]" textColor="text-white" className="font-bold text-lg tracking-widest">
         {/* Adicionado "w-max" para garantir a medição correta da largura */}
         <span className="w-max max-h-16 mx-4 flex items-center gap-x-4">
             <LgndFlagIcon />
@@ -55,7 +55,7 @@ const LegendariosMarquee = () => (
 );
 
 const InstagramBanner = () => (
-    <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="bg-orange-500 text-white flex items-center justify-center gap-4 py-8 group transition-all duration-300 hover:bg-orange-700">
+    <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="bg-[#fb3a01] text-white flex items-center justify-center gap-4 py-8 group transition-all duration-300 hover:bg-orange-700">
         <Instagram size={52} className="transition-transform duration-300 group-hover:scale-125 text-zinc-900"/>
         <h3 className="text-2xl font-bold tracking-wider">Siga nossa página no Instagram</h3>
     </a>

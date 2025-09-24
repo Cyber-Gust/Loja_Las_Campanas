@@ -20,7 +20,7 @@ const LgndFlagIcon = () => (
 const mockCategories = ["Masculino", "Feminino", "Infantil", "Acessórios", "Patchs"];
 
 const TopBanner = () => (
-    <Marquee backgroundColor="bg-orange-500" textColor="text-black" className="font-semibold text-sm">
+    <Marquee backgroundColor="bg-[#fb3a01]" textColor="text-black" className="font-semibold text-sm">
         <div className="w-max flex items-center">
             <span className="mx-8">APROVEITE AS PROMOÇÕES DA LOJA</span>
             <span className="mx-8">FRETE GRÁTIS ACIMA DE R$250</span>
@@ -38,7 +38,7 @@ const MainHeader = () => (
             
             {/* Logo */}
             <div>
-                <Link href="/" >
+                <Link className='pt-4' href="/" >
                     <LgndFlagIcon />
                 </Link>
             </div>
@@ -53,7 +53,7 @@ const MainHeader = () => (
                 <input
                     type="text"
                     placeholder="O que você está procurando?"
-                    className="w-full bg-zinc-700 text-white placeholder-zinc-400 rounded-full py-2 px-5 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                    className="w-full bg-zinc-700 text-white placeholder-zinc-400 rounded-full py-2 px-5 focus:outline-none focus:ring-2 focus:ring-[#fb3a01]"
                 />
                 <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400" size={20} />
             </div>
@@ -62,7 +62,7 @@ const MainHeader = () => (
             <div>
                 <button className="relative p-2 rounded-full mr-20 hover:bg-zinc-700 transition-colors">
                     <ShoppingCart size={24} />
-                    <span className="absolute top-0 right-0 h-4 w-4 rounded-full bg-orange-500 text-xs text-white flex items-center justify-center">
+                    <span className="absolute top-0 right-0 h-4 w-4 rounded-full bg-[#fb3a01] text-xs text-white flex items-center justify-center">
                         3
                     </span>
                 </button>
@@ -77,7 +77,7 @@ const NavMenu = () => (
             <ul className="flex flex-wrap justify-center space-x-4 md:space-x-8 py-3">
                 {mockCategories.map(category => (
                     <li key={category}>
-                        <Link href={`/categoria/${category.toLowerCase()}`} className="font-semibold uppercase text-sm tracking-wider pb-1 border-b-2 border-transparent hover:border-orange-500 hover:text-orange-500 transition-all duration-300">
+                        <Link href={`/categoria/${category.toLowerCase()}`} className="font-semibold uppercase text-sm tracking-wider pb-1 border-b-2 border-transparent hover:border-[#fb3a01] hover:text-[#fb3a01] transition-all duration-300">
                             {category}
                         </Link>
                     </li>

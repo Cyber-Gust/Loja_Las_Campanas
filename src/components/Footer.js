@@ -41,12 +41,12 @@ export default function Footer() {
                         />
                     </Link>
                     <div className="mt-6 text-left">
-                        <h4 className="font-bold text-orange-500 mb-4 text-center">Contato</h4>
-                        <a href="mailto:contato@suaempresa.com" className="flex items-center gap-2 mb-2 hover:text-orange-500 transition-colors">
+                        <h4 className="font-bold text-[#fb3a01] mb-4 text-center">Contato</h4>
+                        <a href="mailto:contato@suaempresa.com" className="flex items-center gap-2 mb-2 hover:text-[#fb3a01] transition-colors">
                             <Mail size={16} />
                             <span>contato@suaempresa.com</span>
                         </a>
-                        <a href="tel:+5511999999999" className="flex items-center gap-2 hover:text-orange-500 transition-colors">
+                        <a href="tel:+5511999999999" className="flex items-center gap-2 hover:text-[#fb3a01] transition-colors">
                             <Phone size={16} />
                             <span>(11) 99999-9999</span>
                         </a>
@@ -55,20 +55,20 @@ export default function Footer() {
 
                 {/* Coluna do Meio: Mapa do Site */}
                 <div className="flex flex-col mt-10 items-center">
-                    <h4 className="font-bold text-orange-500 mb-4">Mapa do Site</h4>
+                    <h4 className="font-bold text-[#fb3a01] mb-4">Mapa do Site</h4>
                     <nav className="flex flex-col gap-2">
-                        <Link href="/" className="hover:text-orange-500 transition-colors">Início</Link>
-                        <Link href="/produtos" className="hover:text-orange-500 transition-colors">Produtos</Link>
-                        <Link href="/sobre-nos" className="hover:text-orange-500 transition-colors">Sobre Nós</Link>
-                        <Link href="/contato" className="hover:text-orange-500 transition-colors">Contato</Link>
-                        <Link href="/politica-de-privacidade" className="hover:text-orange-500 transition-colors">Política de Privacidade</Link>
-                        <Link href="/termos-de-uso" className="hover:text-orange-500 transition-colors">Termos de Uso</Link>
+                        <Link href="/" className="hover:text-[#fb3a01] transition-colors">Início</Link>
+                        <Link href="/produtos" className="hover:text-[#fb3a01] transition-colors">Produtos</Link>
+                        <Link href="/sobre-nos" className="hover:text-[#fb3a01] transition-colors">Sobre Nós</Link>
+                        <Link href="/contato" className="hover:text-[#fb3a01] transition-colors">Contato</Link>
+                        <Link href="/politica-de-privacidade" className="hover:text-[#fb3a01] transition-colors">Política de Privacidade</Link>
+                        <Link href="/termos-de-uso" className="hover:text-[#fb3a01] transition-colors">Termos de Uso</Link>
                     </nav>
                 </div>
 
                 {/* Coluna da Direita: Pagamento e Segurança */}
                 <div className="flex flex-col mt-4 items-center gap-4">
-                    <h4 className="font-bold text-orange-500 mb-4">Formas de Pagamento</h4>
+                    <h4 className="font-bold text-[#fb3a01] mb-4">Formas de Pagamento</h4>
                     <div className="flex justify-center flex-wrap gap-3 mb-6">
                         {paymentIcons.map((icon) => (
                             <div key={icon.alt} className="bg-white p-1 rounded-md shadow-sm w-14 h-9 flex items-center justify-center">
@@ -83,7 +83,7 @@ export default function Footer() {
                         ))}
                     </div>
 
-                    <h4 className="font-bold text-orange-500">Navegação Segura</h4>
+                    <h4 className="font-bold text-[#fb3a01]">Navegação Segura</h4>
                     <div className="flex justify-center items-center">
                         {securitySeals.map((seal) => (
                              <Image
@@ -102,7 +102,7 @@ export default function Footer() {
             <div className="container mx-auto text-center md:flex md:justify-between text-zinc-500 text-base mt-16 border-t border-zinc-700 pt-8 px-8">
                 <p className="mb-2 md:mb-0">© 2025 Las Campanas. Todos os direitos reservados.</p>
                 <p>
-                    Desenvolvido por <a href="https://bitbloomai.com" target="_blank" rel="noopener noreferrer" className="font-semibold text-zinc-400 hover:text-orange-500">BitBloom AI</a>
+                    Desenvolvido por <a href="https://bitbloomai.com" target="_blank" rel="noopener noreferrer" className="font-semibold text-zinc-400 hover:text-[#fb3a01]">BitBloom AI</a>
                 </p>
             </div>
         </footer>
