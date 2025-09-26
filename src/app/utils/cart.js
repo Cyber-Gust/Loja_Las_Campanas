@@ -28,15 +28,24 @@ const saveCart = (cart) => {
 
 /**
  * Adiciona um produto ao carrinho ou atualiza sua quantidade.
+ * O item deve conter selectedColor e imageSrc.
  * @param {Object} item O item do produto a ser adicionado.
  */
 export const addToCart = (item) => {
     const cart = getCart();
-    const existingItem = cart.find(cartItem => cartItem.id === item.id && cartItem.selectedSize === item.selectedSize);
+    
+    // 🚨 ATUALIZAÇÃO: Busca o item exato, incluindo a COR como critério
+    const existingItem = cart.find(
+        cartItem => 
+            cartItem.id === item.id && 
+            cartItem.selectedSize === item.selectedSize &&
+            cartItem.selectedColor === item.selectedColor
+    );
 
     if (existingItem) {
         existingItem.quantity += item.quantity;
     } else {
+        // Se é uma nova variante (incluindo cor), adiciona ao carrinho
         cart.push(item);
     }
     saveCart(cart);
@@ -46,10 +55,16 @@ export const addToCart = (item) => {
  * Remove um produto do carrinho.
  * @param {string} itemId O ID do produto a ser removido.
  * @param {string} itemSize O tamanho do produto a ser removido.
+ * @param {string} itemColor A cor do produto a ser removido.
  */
-export const removeFromCart = (itemId, itemSize) => {
+export const removeFromCart = (itemId, itemSize, itemColor) => {
     const cart = getCart();
-    const updatedCart = cart.filter(item => !(item.id === itemId && item.selectedSize === itemSize));
+    // 🚨 ATUALIZAÇÃO: O filtro agora compara ID, Tamanho E COR
+    const updatedCart = cart.filter(item => 
+        !(item.id === itemId && 
+          item.selectedSize === itemSize &&
+          item.selectedColor === itemColor)
+    );
     saveCart(updatedCart);
 };
 
@@ -57,11 +72,17 @@ export const removeFromCart = (itemId, itemSize) => {
  * Atualiza a quantidade de um item no carrinho.
  * @param {string} itemId O ID do produto a ser atualizado.
  * @param {string} itemSize O tamanho do produto a ser atualizado.
+ * @param {string} itemColor A cor do produto a ser atualizado.
  * @param {number} quantity A nova quantidade.
  */
-export const updateItemQuantity = (itemId, itemSize, quantity) => {
+export const updateItemQuantity = (itemId, itemSize, itemColor, quantity) => {
     const cart = getCart();
-    const itemToUpdate = cart.find(item => item.id === itemId && item.selectedSize === itemSize);
+    // 🚨 ATUALIZAÇÃO: A busca agora compara ID, Tamanho E COR
+    const itemToUpdate = cart.find(item => 
+        item.id === itemId && 
+        item.selectedSize === itemSize &&
+        item.selectedColor === itemColor
+    );
     if (itemToUpdate) {
         itemToUpdate.quantity = quantity;
         saveCart(cart);

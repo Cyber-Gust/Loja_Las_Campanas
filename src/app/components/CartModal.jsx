@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { X } from 'lucide-react';
+import { X, ShoppingBag } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 // Função para buscar o carrinho do localStorage
@@ -17,7 +17,8 @@ const getCart = () => {
     }
 };
 
-const CartModal = ({ isOpen, onClose, product, quantity }) => {
+// 🚨 ATUALIZAÇÃO: Recebendo as props de variação
+const CartModal = ({ isOpen, onClose, product, quantity, selectedSize, selectedColor }) => {
     const [cartItems, setCartItems] = useState([]);
 
     useEffect(() => {
@@ -27,14 +28,25 @@ const CartModal = ({ isOpen, onClose, product, quantity }) => {
     }, [isOpen]);
 
     const calculateTotal = () => {
-        return cartItems.reduce((total, item) => total + (parseFloat(item.variants?.[0]?.price) || 0) * item.quantity, 0).toFixed(2);
+        // Usa o preço salvo na variante do item no carrinho (item.price)
+        return cartItems.reduce((total, item) => total + (parseFloat(item.price) || 0) * item.quantity, 0).toFixed(2);
+    };
+
+    // 🚨 ATUALIZAÇÃO: Encontra o item EXATO que acabou de ser adicionado para exibir
+    const addedItem = cartItems.find(item => 
+        item.id === product.id && 
+        item.selectedSize === selectedSize && 
+        item.selectedColor === selectedColor
+    ) || { 
+        imageSrc: product.images[0]?.src, 
+        price: product.variants?.[0]?.price || '0.00' 
     };
 
     if (!isOpen) return null;
 
     return (
         <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -42,12 +54,13 @@ const CartModal = ({ isOpen, onClose, product, quantity }) => {
             onClick={onClose}
         >
             <div
-                className="bg-white rounded-lg shadow-xl p-6 w-full max-w-lg relative"
+                className="bg-white rounded-lg shadow-xl p-6 w-full max-w-lg relative max-h-[90vh] overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}
             >
                 <button
                     onClick={onClose}
                     className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-600 transition-colors"
+                    aria-label="Fechar modal"
                 >
                     <X size={24} />
                 </button>
@@ -57,11 +70,12 @@ const CartModal = ({ isOpen, onClose, product, quantity }) => {
                     <h2 className="text-2xl font-bold text-zinc-800">Item Adicionado ao Carrinho</h2>
                 </div>
 
-                {/* Produto Adicionado */}
+                {/* Produto Adicionado (Agora com a imagem da variação) */}
                 <div className="flex items-center gap-4 border-b pb-4 mb-4">
                     <div className="relative w-20 h-20 flex-shrink-0">
                         <Image
-                            src={product.images[0]?.src || 'https://placehold.co/80x80'}
+                            // 🚨 ATUALIZAÇÃO: Usa a imagem da variante
+                            src={addedItem.imageSrc || 'https://placehold.co/80x80'}
                             alt={product.name.pt}
                             fill
                             sizes="80px"
@@ -71,7 +85,13 @@ const CartModal = ({ isOpen, onClose, product, quantity }) => {
                     <div>
                         <h3 className="font-semibold text-zinc-800">{product.name.pt}</h3>
                         <p className="text-zinc-600 text-sm mt-1">
-                            {quantity} x R$ {parseFloat(product.variants?.[0]?.price || 0).toFixed(2)}
+                            {quantity} x R$ {parseFloat(addedItem.price).toFixed(2)}
+                        </p>
+                        {/* 🚨 NOVO: Exibe as variações */}
+                        <p className="text-zinc-500 text-xs mt-1">
+                            {selectedSize && `Tamanho: ${selectedSize}`}
+                            {selectedSize && selectedColor && ' | '}
+                            {selectedColor && `Cor: ${selectedColor}`}
                         </p>
                     </div>
                 </div>
@@ -80,7 +100,7 @@ const CartModal = ({ isOpen, onClose, product, quantity }) => {
                 <div className="mb-6">
                     <h4 className="font-bold text-zinc-800 mb-2">Seu Carrinho ({cartItems.length} Itens)</h4>
                     <div className="flex justify-between font-semibold text-lg">
-                        <span>Total:</span>
+                        <span>Subtotal:</span>
                         <span>R$ {calculateTotal()}</span>
                     </div>
                 </div>

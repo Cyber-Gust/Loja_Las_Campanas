@@ -18,7 +18,7 @@ const LgndFlagIcon = () => (
   />
 );
 
-const mockCategories = ["Masculino", "Feminino", "Infantil", "Acessórios", "Patchs"];
+const mockCategories = ["Masculino", "Feminino", "Infantil", "Acessorios", "Patchs"];
 
 const TopBanner = () => (
     <Marquee backgroundColor="bg-[#fb3a01]" textColor="text-white" className="font-semibold text-sm">

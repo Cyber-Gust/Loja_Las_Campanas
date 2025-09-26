@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import ProductCard from '../../../components/ProductCard'; // Certifique-se de que este componente existe
+import ProductCard from '../../components/ProductCard'; // Certifique-se de que este componente existe
 import { Heart, SlidersHorizontal, Check } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
