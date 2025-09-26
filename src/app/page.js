@@ -2,6 +2,7 @@ import React from 'react';
 import { ShieldCheck, CreditCard, Truck, Instagram } from 'lucide-react';
 import Image from 'next/image';
 import InfoCards from './components/InfoCards'; // Importando o componente
+import CategoryGrid from './components/CategoryGrid';
 
 
 
@@ -33,7 +34,7 @@ const LgndLetrasIcon = () => (
 
 const Hero = () => (
     <section 
-        className="w-full h-[50vh] md:h-[60vh] bg-cover bg-center" 
+        className="w-full h-[50vh] md:h-[75vh] bg-cover bg-center" 
         style={{ backgroundImage: "url('/bg_hero.jpg')" }} 
     />
 );
@@ -78,16 +79,12 @@ export default async function HomePage() {
     <>
       <Hero />
       <LegendariosMarquee />
-      <InfoCards />      
+      <InfoCards />
+      <CategoryGrid/>            
+      <InstagramBanner />
       <div className="container mx-auto px-4">
         {/* 3. Os dados são passados como props para o componente de cliente */}
-        <ProductCarousel title="EM DESTAQUE" products={featuredProducts} />
-      </div>
-      
-      <InstagramBanner />
-      
-      <div className="container mx-auto px-4">
-        <ProductCarousel title="PROMOÇÕES" products={saleProducts} />
+        <ProductCarousel title="DESTAQUES" products={featuredProducts} />
       </div>
     </>
   );

@@ -2,52 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { Heart } from 'lucide-react';
-
-// --- COMPONENTE PRODUCTCARD (SEM ALTERAÇÕES) ---
-const ProductCard = ({ product }) => {
-    const [isFavorited, setIsFavorited] = useState(false);
-    const price = product.variants[0]?.price || '0.00';
-    const imageUrl = product.images[0]?.src || 'https://placehold.co/400x500/1a1a1a/orange?text=Produto';
-    const productName = product.name.pt || "Nome do Produto";
-    const categoryName = product.categories?.[0]?.name?.pt || 'Sem categoria';
-
-    return (
-        <div className="flex-shrink-0 w-64 md:w-72 snap-center group">
-            <div className="relative overflow-hidden bg-zinc-200 rounded-t-2xl rounded-b-lg aspect-[4/5]">
-                <button
-                    onClick={() => setIsFavorited(!isFavorited)}
-                    className="absolute top-3 right-3 z-10 p-2 bg-white/60 rounded-full backdrop-blur-sm hover:bg-white/80 transition-colors"
-                    aria-label="Adicionar aos favoritos"
-                >
-                    <Heart
-                        className={`text-orange-500 transition-all duration-200 ${
-                            isFavorited ? 'fill-orange-500' : 'fill-transparent'
-                        }`}
-                        size={20}
-                    />
-                </button>
-                <Image
-                    src={imageUrl}
-                    alt={productName}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <button className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-orange-500 text-white font-bold py-2 px-6 rounded-full opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                    Ver Produto
-                </button>
-            </div>
-            <div className="mt-4 text-left px-1">
-                <p className="font-bold text-lg text-zinc-800">R$ {price}</p>
-                <h3 className="text-zinc-700 mt-1">{productName}</h3>
-                <p className="text-sm text-zinc-500 capitalize">{categoryName}</p>
-            </div>
-        </div>
-    );
-};
+import ProductCard from './ProductCard'; // Importação do componente externo
 
 // --- COMPONENTE PRINCIPAL DO CARROSSEL (LÓGICA CORRIGIDA) ---
 export default function ProductCarousel({ title, products }) {
@@ -124,4 +79,3 @@ export default function ProductCarousel({ title, products }) {
         </section>
     );
 };
-
