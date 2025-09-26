@@ -1,4 +1,6 @@
 // Este é um Server Component para buscas seguras
+import { getSingleProduct, getProductsByCategory } from '../../../lib/nuvemshop';
+import ProductClientView from './ProductClientView';
 
 export default async function ProductPage({ params }) {
     

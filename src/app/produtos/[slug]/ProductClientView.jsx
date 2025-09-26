@@ -7,7 +7,6 @@ import ProductCarousel from '../../components/ProductCarousel';
 import { AnimatePresence } from 'framer-motion';
 import { addToCart } from '../../utils/cart';
 import CartModal from '../../components/CartModal';
-
 // --- Funções de Lógica (Mantidas e protegidas) ---
 
 const getFavorites = () => {
